@@ -1,0 +1,18 @@
+{
+  "name": "chat_bot_v1",
+  "version": "1.0.0",
+  "description": "A chat bot application to assist restaurant's client in placing orders.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "zeuhzDroid",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.0",
+    "morgan": "^1.10.0"
+  }
+}
