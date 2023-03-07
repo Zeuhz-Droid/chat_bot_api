@@ -9,6 +9,9 @@ const orderSchema = new mongoose.Schema({
     type: Array,
     maxlength: [50, 'Item name should contain no more than 50 characters'],
   },
+  itemsCount: {
+    type: Number,
+  },
   amount: {
     type: Number,
   },
@@ -17,6 +20,14 @@ const orderSchema = new mongoose.Schema({
     default: Date.now(),
   },
   merchant: String,
+  cancelled: {
+    type: Boolean,
+    default: false,
+  },
+  fulfilled: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Orders = mongoose.model('Orders', orderSchema);
