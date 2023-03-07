@@ -83,3 +83,47 @@ exports.placeOrder = async (req, res, next) => {
     console.log(error);
   }
 };
+
+exports.checkoutOrder = async (req, res, next) => {
+  try {
+    // 1.) check if an order is opened.
+    if (!req.session.init) {
+      res.status(206).json({
+        status: 'partial content',
+        message: `You have no open order, Select 1 to place an order.`,
+      });
+    }
+
+    // 2.) Find the total order and amount
+    const order = await Orders.findOne({ id: req.session.orderId });
+
+    // 3.) check If any item is selected, and retun message
+    if (!order.items.length)
+      res.status(206).json({
+        status: 'success',
+        message: 'No order placed, Please select an item.',
+      });
+
+    // 4.) if items exists, destroy the initialized order and render the order pleced for payment
+    let fulfilledOrder;
+    if (order.items.length) {
+      fulfilledOrder = await Orders.findOneAndUpdate(
+        { id: req.session.orderId },
+        { fulfilled: true },
+        {
+          new: true,
+        }
+      );
+      req.session.init = false;
+    }
+    // if (order.items.length) req.session.destroy();
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Order checkout successful',
+      data: {
+        order: fulfilledOrder,
+      },
+    });
+  } catch (error) {}
+};
