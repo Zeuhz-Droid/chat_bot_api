@@ -217,3 +217,55 @@ exports.cancelOrder = async (req, res, next) => {
     }
   } catch (error) {}
 };
+
+exports.selectItem = async (req, res, next) => {
+  try {
+    // 1.) extract selected id (item) from request params
+    const itemId = req.params.id;
+
+    // 2.) Extract id from users session
+    const orderId = req.session.orderId;
+
+    // 3.) Find user opened or placed order using the extracted id, since it is similar to the order id
+    let order = await Orders.findOne({ id: orderId });
+
+    // 2.) check if order has been placed or opened and return feedback
+    if (!req.session.init) {
+      res.status(206).json({
+        status: 'partial content',
+        message: `You have no open order, Select 1 to place an order`,
+      });
+      return;
+    }
+
+    // 3.) Read through your list items and compare chosen item with available items
+    Items.forEach(async (entry) => {
+      if (itemId == entry.id) {
+        // 4.) if orderId exists find the order in the database
+        // const order = await Orders.findById(orderId);
+
+        if (order) {
+          let totalItemsAmount = 0;
+          order.items.push({ item: entry.item, amount: entry.amount });
+          order.items.forEach(
+            (element) => (totalItemsAmount += element.amount)
+          );
+          order.amount = totalItemsAmount;
+          order.itemsCount = order.items.length;
+
+          await Orders.findByIdAndUpdate(order._id, order);
+
+          res.status(200).json({
+            status: 'success',
+            message: `Selected item ${entry.item}`,
+            data: {
+              order,
+            },
+          });
+        }
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
