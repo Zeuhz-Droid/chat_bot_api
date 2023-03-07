@@ -188,3 +188,32 @@ exports.currentOrder = async (req, res, next) => {
     });
   } catch (error) {}
 };
+
+exports.cancelOrder = async (req, res, next) => {
+  try {
+    let order;
+
+    if (!req.session.init) {
+      res.status(412).json({
+        status: 'Pre condition Failed',
+        message: `You have no open order, Please select 1 to place an order.`,
+      });
+      return;
+    }
+
+    if (req.session.init) {
+      order = await Orders.findOne({ id: req.session.orderId });
+
+      await Orders.findOneAndUpdate(
+        { id: req.session.orderId },
+        { cancelled: true }
+      );
+      req.session.init = false;
+
+      res.status(200).json({
+        status: 'success',
+        message: 'Order cancelled',
+      });
+    }
+  } catch (error) {}
+};
