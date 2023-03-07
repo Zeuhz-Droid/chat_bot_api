@@ -127,3 +127,39 @@ exports.checkoutOrder = async (req, res, next) => {
     });
   } catch (error) {}
 };
+
+exports.orderHistory = async (req, res, next) => {
+  try {
+    let orders;
+
+    // 1.) check if user has placed any order recently
+    if (req.session.init) {
+      res.status(206).json({
+        status: 'success',
+        message: `Please select 99 to checkout or 97 to cancel pending order.`,
+      });
+      return;
+    }
+
+    orders = await Orders.find({ merchant: req.session.username });
+
+    if (!orders.length) {
+      res.status(206).json({
+        status: 'success',
+        message: `You have No orders, Please select 1 to place an order.`,
+      });
+      return;
+    }
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Order History sent',
+      count: orders.length,
+      data: {
+        orders,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
