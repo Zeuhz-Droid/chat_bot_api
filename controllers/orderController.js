@@ -1,8 +1,21 @@
 const Items = require('../models/itemModels');
+const Users = require('../models/userModels');
 const Orders = require('../models/orderModels');
+const { sendSuccessData } = require('../utilities/helperFunc');
+
+exports.getUserInfo = async (req, res, next) => {
+  const randomNum = `${Math.random()}`;
+  const addedNumtoUsername = randomNum.slice(-5);
+  req.body.username += addedNumtoUsername;
+  await Users.create({ username: req.body.username });
+  next();
+};
 
 exports.getInfoAboutChatbot = async (req, res, next) => {
   try {
+    req.session.authenticated = true;
+    req.session.username = req.body.username;
+
     res.status(200).json({
       status: 'success',
       message: 'Welcome to chatbot',
@@ -34,45 +47,4 @@ exports.getInfoAboutChatbot = async (req, res, next) => {
   } catch (error) {
     next(new Error(`Try accessing this page at a later time ${error}`));
   }
-};
-
-exports.placeOrder = async (req, res, next) => {
-  try {
-    const option = req.body.option;
-    if (option !== 1) next();
-
-    res.status(200).json({
-      status: 'success',
-      message: 'Started an Order',
-      data: {
-        Items,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-exports.checkoutOrder = async (req, res, next) => {
-  try {
-    const option = req.body.option;
-    if (option !== 99) next();
-
-    res.status(200).json({
-      status: 'success',
-      message: 'Order checkout successful',
-      // data: {
-      //   orders,
-      // },
-    });
-  } catch (error) {}
-};
-
-exports.selectItem = async (req, res, next) => {
-  const itemNumber = req.body.id;
-  Items.forEach((entry) => {
-    if (itemNumber == entry.id) {
-      console.log(req.body);
-    }
-  });
 };
