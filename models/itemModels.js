@@ -62,6 +62,4 @@ const items = [
   },
 ];
 
-// console.log(Object.keys(data)[0]);
-
 module.exports = items;
