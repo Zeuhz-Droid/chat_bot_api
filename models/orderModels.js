@@ -16,8 +16,8 @@ const orderSchema = new mongoose.Schema({
     type: Number,
   },
   dateCreated: {
-    type: Date,
-    default: Date.now(),
+    type: String,
+    default: new Date().toDateString(),
   },
   merchant: String,
   cancelled: {
