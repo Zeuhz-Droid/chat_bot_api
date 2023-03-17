@@ -1,15 +1,6 @@
 const Items = require('../models/itemModels');
 const Users = require('../models/userModels');
 const Orders = require('../models/orderModels');
-const { sendSuccessData } = require('../utilities/helperFunc');
-
-exports.getUserInfo = async (req, res, next) => {
-  const randomNum = `${Math.random()}`;
-  const addedNumtoUsername = randomNum.slice(-5);
-  req.body.username += addedNumtoUsername;
-  await Users.create({ username: req.body.username });
-  next();
-};
 
 exports.getInfoAboutChatbot = async (req, res, next) => {
   try {
@@ -18,7 +9,7 @@ exports.getInfoAboutChatbot = async (req, res, next) => {
 
     res.status(200).json({
       status: 'success',
-      message: 'Welcome to chatbot',
+      message: `Hi ${req.body.username}!👋, Welcome to chatbot.`,
       data: {
         instructions: [
           {
@@ -64,8 +55,8 @@ exports.placeOrder = async (req, res, next) => {
     let orderId = count + 1;
 
     req.session.init = true;
+
     req.session.orderId = orderId;
-    console.log(req.session);
 
     await Orders.create({
       id: orderId,
@@ -74,7 +65,8 @@ exports.placeOrder = async (req, res, next) => {
 
     res.status(200).json({
       status: 'success',
-      message: 'Started an Order',
+      message:
+        'Started an Order, please select items using their respective numbers.',
       data: {
         Items,
       },
@@ -120,7 +112,7 @@ exports.checkoutOrder = async (req, res, next) => {
 
     res.status(200).json({
       status: 'success',
-      message: 'Order checkout successful',
+      message: 'Order Placed👍.',
       data: {
         order: fulfilledOrder,
       },
@@ -136,12 +128,14 @@ exports.orderHistory = async (req, res, next) => {
     if (req.session.init) {
       res.status(206).json({
         status: 'success',
-        message: `Please select 99 to checkout or 97 to cancel pending order.`,
+        message: `Please select 99 to checkout or 0 to cancel pending order.`,
       });
       return;
     }
 
-    orders = await Orders.find({ merchant: req.session.username });
+    orders = await Orders.find({ merchant: req.session.username }).where({
+      fulfilled: true,
+    });
 
     if (!orders.length) {
       res.status(206).json({
@@ -166,7 +160,7 @@ exports.orderHistory = async (req, res, next) => {
 
 exports.currentOrder = async (req, res, next) => {
   try {
-    let order;
+    let currentOrder;
 
     if (!req.session.init) {
       res.status(412).json({
@@ -177,13 +171,13 @@ exports.currentOrder = async (req, res, next) => {
     }
 
     if (req.session.init)
-      order = await Orders.findOne({ id: req.session.orderId });
+      currentOrder = await Orders.findOne({ id: req.session.orderId });
 
     res.status(200).json({
       status: 'success',
-      message: 'current Order request successful',
+      message: 'Current Order⌛:',
       data: {
-        order,
+        currentOrder,
       },
     });
   } catch (error) {}
@@ -212,10 +206,12 @@ exports.cancelOrder = async (req, res, next) => {
 
       res.status(200).json({
         status: 'success',
-        message: 'Order cancelled',
+        message: 'Order cancelled😓.',
       });
     }
-  } catch (error) {}
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 exports.selectItem = async (req, res, next) => {
@@ -230,10 +226,11 @@ exports.selectItem = async (req, res, next) => {
     let order = await Orders.findOne({ id: orderId });
 
     // 2.) check if order has been placed or opened and return feedback
+    console.log(req.session.id);
     if (!req.session.init) {
       res.status(206).json({
         status: 'partial content',
-        message: `You have no open order, Select 1 to place an order`,
+        message: `You have no open order, Select 1 to place an order.`,
       });
       return;
     }
