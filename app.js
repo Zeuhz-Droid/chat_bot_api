@@ -58,7 +58,7 @@ const sessionOptions = {
   }),
   cookie: {
     name: 'orderBot',
-    domain: '.zeuhz-droid.github',
+    domain: '.zeuhz-droid.github.io',
     secure: true,
     httpOnly: true,
     sameSite: 'none',
