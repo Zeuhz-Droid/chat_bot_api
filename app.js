@@ -59,7 +59,7 @@ const sessionOptions = {
   }),
   cookie: {
     name: 'orderBot',
-    domain: '.zeuhz-orderbotconsumer-droid.netlify.app/',
+    domain: '.zeuhz-orderbotconsumer-droid.netlify.app',
     secure: true,
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000,
