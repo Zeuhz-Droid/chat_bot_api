@@ -165,6 +165,12 @@ function renderServerMessage(data) {
       <p>${data.message}</p>
       ${messageHTML ? '<br/>' : ''}
         ${messageHTML}
+        <br/>
+        ${
+          messages.includes(data.message)
+            ? `<br/> Select 1 to place new order`
+            : ''
+        }
     </div>
   `;
   main.insertAdjacentHTML('afterbegin', markup);
@@ -245,7 +251,7 @@ function displayData(data) {
         <div> 
           <p>${itemsCount} item(s) selected</p>
            <p>${items.map(
-             (elem) => `${++count}. ${elem.item} - $${elem.amount}\n`
+             (elem) => `${++count}. ${elem.item} - $${elem.amount} <br/>`
            )}</p>
           <span>Total Amount: $${amount}</span>
         </div>
