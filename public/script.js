@@ -124,6 +124,7 @@ async function makeCallToAPI(id = '', endpoint = '', method = 'GET', username) {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        "https://zeuhz-orderbot-droid.onrender.com",
       },
     };
 

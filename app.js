@@ -28,30 +28,30 @@ if ((process.env.NODE_ENV = 'development')) {
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 
-// const whitelist = [
-//   'https://zeuhz-droid.github.io',
-//   'https://zeuhz-orderbotconsumer-droid.netlify.app',
-//   'http://localhost:5501',
-//   'http://localhost:5500',
-// ];
+const whitelist = [
+  'https://zeuhz-droid.github.io',
+  'https://zeuhz-orderbotconsumer-droid.netlify.app',
+  'http://localhost:5501',
+  'http://localhost:5500',
+];
 
 // //  Implementing CORS
-// app.use(
-//   cors({
-//     origin: whitelist,
-//     credentials: true,
-//     methods: 'GET, POST',
-//     allowedHeaders: [
-//       'Access-Control-Allow-Origin',
-//       'Content-Type',
-//       'Authorization',
-//     ],
-//   })
-// );
+app.use(
+  cors({
+    origin: whitelist,
+    credentials: true,
+    methods: 'GET, POST',
+    allowedHeaders: [
+      'Access-Control-Allow-Origin',
+      'Content-Type',
+      'Authorization',
+    ],
+  })
+);
 
 //  creating in memory sessions for our clients to stay recognized by the server.
 
-// app.set('trust proxy', 1);
+app.set('trust proxy', 1);
 
 const sessionOptions = {
   name: 'orderBot',
@@ -66,7 +66,7 @@ const sessionOptions = {
     name: 'orderBot',
     secure: true,
     httpOnly: true,
-    sameSite: 'none',
+    sameSite: true,
     maxAge: 1 * 60 * 60 * 1000,
   },
 };
