@@ -60,7 +60,7 @@ const sessionOptions = {
   saveUninitialized: true,
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URL,
-    touchAfter: 24 * 3600,
+    touchAfter: 1 * 3600,
   }),
   cookie: {
     name: 'orderBot',
