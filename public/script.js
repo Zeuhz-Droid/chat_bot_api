@@ -208,11 +208,13 @@ function displayData(data) {
     let count = 0;
     dataObj.orders.forEach((el) => {
       const markup = `
-        <div> 
-          <span>${++count}. ${el.dateCreated}</span>
-          <p> <em>*</em> You Bought ${el.itemsCount} items</p>
-          <p> <em>*</em> ${el.items.map((elem) => ` ${elem.item}`)}</p>
-          <span> <em>*</em> Total Amount: $${el.amount}</span>
+        <div class="orders"> 
+          <p>${++count}. <strong>Date:</strong> ${el.dateCreated}</p>
+          <p> <strong>count:</strong> You Bought ${el.itemsCount} items</p>
+          <p> <strong>Items:</strong> ${el.items.map(
+            (elem) => ` ${elem.item} <br/>`
+          )}</p>
+          <p> <strong>Total Amount:</strong> $${el.amount}</p>
         </div>
         <br/>
       `;
