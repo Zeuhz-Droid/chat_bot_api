@@ -211,9 +211,9 @@ function displayData(data) {
         <div class="orders"> 
         <strong>ORDER ${++count}:</strong>
           <p> <strong>Date -</strong> ${el.dateCreated}</p>
-          <p> <strong>count -</strong> You Bought ${el.itemsCount} items</p>
+          <p> <strong>count -</strong> You Bought ${el.itemsCount} item(s)</p>
           <div class="order-items">
-            <strong>Items - </strong>
+            <strong class="order-label">Items - </strong>
             <p> ${el.items.map((elem) => ` ${elem.item}`)}</p>
           </div>
           <p> <strong>Total Amount -</strong> $${el.amount}</p>

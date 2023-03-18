@@ -281,6 +281,10 @@ body {
   display: flex;
 }
 
+.order-label {
+  width: fit-content;
+}
+
 .order-items p {
   display: flex;
   flex-direction: column;
