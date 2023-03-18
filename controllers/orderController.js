@@ -254,7 +254,7 @@ exports.selectItem = async (req, res, next) => {
 
           res.status(200).json({
             status: 'success',
-            message: `Selected item ${entry.item}`,
+            message: `Selected ${entry.item} @ $${entry.amount}`,
             data: {
               order,
             },
