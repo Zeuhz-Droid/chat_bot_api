@@ -36,22 +36,22 @@ const whitelist = [
 ];
 
 //  Implementing CORS
-// app.use(
-//   cors({
-//     origin: whitelist,
-//     credentials: true,
-//     methods: 'GET, POST',
-//     allowedHeaders: [
-//       'Access-Control-Allow-Origin',
-//       'Content-Type',
-//       'Authorization',
-//     ],
-//   })
-// );
+app.use(
+  cors({
+    origin: whitelist,
+    credentials: true,
+    methods: 'GET, POST',
+    allowedHeaders: [
+      'Access-Control-Allow-Origin',
+      'Content-Type',
+      'Authorization',
+    ],
+  })
+);
 
 //  creating in memory sessions for our clients to stay recognized by the server.
 
-// app.set('trust proxy', 1);
+app.set('trust proxy', 1);
 
 const sessionOptions = {
   name: 'orderBot',
