@@ -66,7 +66,7 @@ const sessionOptions = {
     name: 'orderBot',
     secure: true,
     httpOnly: true,
-    sameSite: 'true',
+    sameSite: 'none',
     maxAge: 1 * 60 * 60 * 1000,
   },
 };

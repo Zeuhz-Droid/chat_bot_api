@@ -124,8 +124,6 @@ async function makeCallToAPI(id = '', endpoint = '', method = 'GET', username) {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        'Access-Control-Allow-Origin':
-          'https://zeuhz-orderbot-droid.onrender.com',
       },
     };
 
@@ -134,7 +132,9 @@ async function makeCallToAPI(id = '', endpoint = '', method = 'GET', username) {
     method == 'POST' ? (options.body = body) : '';
 
     const res = await fetch(
-      `./api/v1/chatbot${id ? '/' : ''}${id}${endpoint ? '/' : ''}${endpoint}`,
+      `https://zeuhz-orderbot-droid.onrender.com/api/v1/chatbot${
+        id ? '/' : ''
+      }${id}${endpoint ? '/' : ''}${endpoint}`,
       options
     );
 
