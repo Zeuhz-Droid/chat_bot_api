@@ -30,6 +30,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 
 const whitelist = [
   'https://zeuhz-droid.github.io',
+  'https://zeuhz-orderbotconsumer-droid.netlify.app/',
   'http://localhost:5501',
   'http://localhost:5500',
 ];
