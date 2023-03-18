@@ -209,12 +209,12 @@ function displayData(data) {
     dataObj.orders.forEach((el) => {
       const markup = `
         <div class="orders"> 
-        <strong>ORDER ${++count}:<strong>
+        <strong>ORDER ${++count}:</strong>
           <p> <strong>Date -</strong> ${el.dateCreated}</p>
           <p> <strong>count -</strong> You Bought ${el.itemsCount} items</p>
           <div class="order-items">
             <strong>Items - </strong>
-            <p> ${el.items.map((elem) => ` ${elem.item} <br/>`)}</p>
+            <p> ${el.items.map((elem) => ` ${elem.item}`)}</p>
           </div>
           <p> <strong>Total Amount -</strong> $${el.amount}</p>
         </div>
