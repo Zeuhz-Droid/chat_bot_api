@@ -7,8 +7,8 @@ const router = express.Router();
 // should we access the client replies via the request params or body?
 router
   .route('/')
-  .post(orderController.getInfoAboutChatbot)
-  .get(orderController.getInfoAboutChatbot);
+  .get(orderController.getInfoAboutChatbot)
+  .post(orderController.getInfoAboutChatbot);
 
 router.route('/1').get(orderController.placeOrder);
 router.route('/99').get(orderController.checkoutOrder);
