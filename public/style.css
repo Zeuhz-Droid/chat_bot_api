@@ -277,6 +277,15 @@ body {
   animation-delay: 0.3s;
 }
 
+.order-items {
+  display: flex;
+}
+
+.order-items p {
+  display: flex;
+  flex-direction: column;
+}
+
 @keyframes load {
   0% {
     transform: translateY(0);
