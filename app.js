@@ -64,7 +64,8 @@ const sessionOptions = {
   }),
   cookie: {
     name: 'orderBot',
-    secure: true,
+    domain: 'localhost',
+    secure: false,
     httpOnly: true,
     sameSite: 'none',
     maxAge: 24 * 60 * 60 * 1000,
