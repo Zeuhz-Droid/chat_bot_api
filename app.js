@@ -36,22 +36,22 @@ const whitelist = [
 ];
 
 //  Implementing CORS
-app.use(
-  cors({
-    origin: whitelist,
-    credentials: true,
-    methods: 'GET, POST',
-    allowedHeaders: [
-      'Access-Control-Allow-Origin',
-      'Content-Type',
-      'Authorization',
-    ],
-  })
-);
+// app.use(
+//   cors({
+//     origin: whitelist,
+//     credentials: true,
+//     methods: 'GET, POST',
+//     allowedHeaders: [
+//       'Access-Control-Allow-Origin',
+//       'Content-Type',
+//       'Authorization',
+//     ],
+//   })
+// );
 
 //  creating in memory sessions for our clients to stay recognized by the server.
 
-app.set('trust proxy', 1);
+// app.set('trust proxy', 1);
 
 const sessionOptions = {
   name: 'orderBot',
@@ -66,7 +66,7 @@ const sessionOptions = {
     name: 'orderBot',
     secure: true,
     httpOnly: true,
-    sameSite: 'none',
+    sameSite: 'true',
     maxAge: 1 * 60 * 60 * 1000,
   },
 };
@@ -77,6 +77,10 @@ app.use(passport.session()); //initialize session with passport
 
 app.use('/api/v1/chatbot', orderRouter);
 app.use('/api/v1/chatbot/users', userRouter);
+
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'index.html'));
+});
 
 app.use('*', (req, res, next) => {
   res.status(404).json({
