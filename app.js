@@ -41,6 +41,11 @@ app.use(
     origin: whitelist,
     credentials: true,
     methods: 'GET, POST',
+    allowedHeaders: [
+      'Access-Control-Allow-Origin',
+      'Content-Type',
+      'Authorization',
+    ],
   })
 );
 
@@ -61,6 +66,7 @@ const sessionOptions = {
     name: 'orderBot',
     secure: true,
     httpOnly: true,
+    sameSite: 'none',
     maxAge: 24 * 60 * 60 * 1000,
   },
 };
