@@ -9,7 +9,9 @@ exports.getInfoAboutChatbot = async (req, res, next) => {
 
     res.status(200).json({
       status: 'success',
-      message: `Hi ${req.body.username}!👋, Welcome to chatbot.`,
+      message: `Hi ${
+        req.body.username ? req.body.username : ''
+      }!👋, Welcome to chatbot.`,
       data: {
         instructions: [
           {
