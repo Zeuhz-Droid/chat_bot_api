@@ -44,7 +44,7 @@ formChatbox.addEventListener('submit', async (e) => {
   // 1.) run input validation on client input
   let clientMessage = e.target.elements['chatbox-input'].value;
 
-  if (!clientMessage) return;
+  if (!clientMessage.trim()) return;
 
   renderMessage(clientMessage);
 
