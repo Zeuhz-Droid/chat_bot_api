@@ -212,7 +212,9 @@ function displayData(data) {
       const markup = `
         <div class="orders"> 
         <strong>ORDER ${++count}:</strong>
-          <p> <strong>Date -</strong> ${el.dateCreated}</p>
+          <div class="order-items"> <strong>Date -</strong> <p>${
+            el.dateCreated
+          }</p></div>
           <p> <strong>count -</strong> You Bought ${el.itemsCount} item(s)</p>
           <div class="order-items">
             <strong class="order-label">Items - </strong>
