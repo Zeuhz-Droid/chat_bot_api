@@ -189,7 +189,7 @@ function displayData(data) {
     dataObj.instructions.forEach((el) => {
       p.insertAdjacentHTML(
         'beforeend',
-        `${el.option}. ${el.instruction} <br/>`
+        `<strong>${el.option}</strong>. ${el.instruction} <br/>`
       );
     });
     return p.innerHTML;
@@ -199,7 +199,10 @@ function displayData(data) {
   if (dataObj.Items) {
     const p = document.createElement('p');
     dataObj.Items.forEach((el) => {
-      p.insertAdjacentHTML('beforeend', `${el.id}. ${el.item} <br/>`);
+      p.insertAdjacentHTML(
+        'beforeend',
+        `<strong>${el.id}</strong>. ${el.item} <br/>`
+      );
     });
     return p.innerHTML;
   }
