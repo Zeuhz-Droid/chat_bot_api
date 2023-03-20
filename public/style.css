@@ -119,8 +119,9 @@ body {
 /*  MAIN SECTION FOR CLIENT AND SERVER*/
 .main {
   margin: auto;
-  /* height: calc(100vh - 8rem - 5rem); */
-  /* max-height: 75vh; */
+  height: calc(100vh - 8rem - 5rem);
+  height: calc(100svh - 8rem - 5rem);
+  max-height: 75svh;
   padding: 0 3rem;
   padding-bottom: 2rem;
   display: flex;
