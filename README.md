@@ -76,6 +76,8 @@ data: {
 }
 ```
 
+![orderBot Landing page - name request.](./public/assets/orderBot-landing-page.png)
+
 ### createOrder
 
 - Route: /api/v1/chatbot/1
