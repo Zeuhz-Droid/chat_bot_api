@@ -50,6 +50,8 @@ This is an API for a chat Bot to make orders.
 | cancelled   | Boolean   | optional, default: false      |
 | fulfilled   | string    | optional, default: false      |
 
+![orderBot Landing page - name request.](./public/assets/orderBot-landing-page.png)
+
 ### getInfoABoutApp
 
 - Route: /api/v1/chatbot/
@@ -76,9 +78,9 @@ data: {
 }
 ```
 
-![orderBot Landing page - name request.](./public/assets/orderBot-landing-page.png)
+![orderBot welcome message.](./public/assets/orderBot-getInfoAboutUser.png)
 
-### createOrder
+### placeOrder
 
 - Route: /api/v1/chatbot/1
 - Method: GET
@@ -97,6 +99,8 @@ Items : [
   .
 ]
 ```
+
+![orderBot place order -- res with bot instructions.](./public/assets/orderBot-bot-instructions.png)
 
 ### selectAnItem
 
@@ -131,6 +135,8 @@ Items : [
 }
 ```
 
+![orderBot selects items based on their respective numbers -- as clients chooses.](./public/assets/orderBot-selected-items.png)
+
 ### currentOrder
 
 - Route: /api/v1/chatbot/97
@@ -151,8 +157,8 @@ Items : [
                     "amount": 2100
                 },
                 {
-                    "item": "Airpods pro 2",
-                    "amount": 250
+                    "item": "Bible (king James Version)",
+                    "amount": 40
                 }
             ],
             "dateCreated": "Wed Mar 22 2023 13:00:05 GMT+0000 (Coordinated Universal Time)",
@@ -166,6 +172,8 @@ Items : [
     }
 }
 ```
+
+![orderBot gets current order.](./public/assets/orderBot-current-order.png)
 
 ### checkoutOrder
 
@@ -203,6 +211,48 @@ Items : [
 }
 ```
 
+![orderBot checkout order.](./public/assets/orderBot-checkout-order.png)
+
+### orderHistory
+
+- Route: /api/v1/chatbot/98
+- Method: GET
+- Body:
+
+```JavaScript
+{
+    "status": "success",
+    "message": "Order History🧾:",
+    "count": 1,
+    "data": {
+        "orders": [
+            {
+                "_id": "6416d411ec871cd9f63c8cc8",
+                "id": 2,
+                "items": [
+                    {
+                        "item": "Microsoft surface pro 7",
+                        "amount": 2100
+                    },
+                    {
+                        "item": "Bible (king James Version)",
+                        "amount": 40
+                    },
+                ],
+                "dateCreated": "Sun Mar 19 2023 09:16:43 GMT+0000 (Coordinated Universal Time)",
+                "cancelled": false,
+                "fulfilled": true,
+                "__v": 0,
+                "amount": 281340,
+                "itemsCount": 2
+            }
+        ]
+    }
+}
+```
+
+![orderBot fetches order History.](./public/assets/orderBot-order-history.png)
+
 ### cancelOrder
 
 - Route: /api/v1/chatbot/0
@@ -215,6 +265,8 @@ Items : [
     "message": "Order cancelled😓."
 }
 ```
+
+![orderBot cancels order.](./public/assets/orderBot-cancels-order.png)
 
 ## Contributor
 
