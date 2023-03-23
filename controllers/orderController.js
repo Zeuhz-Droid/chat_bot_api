@@ -74,7 +74,9 @@ exports.placeOrder = async (req, res, next) => {
       },
     });
   } catch (error) {
-    console.log(error);
+    throw new Error(
+      `Try placing an order at a later time, the server is currently down (${error.statusCode})`
+    );
   }
 };
 
@@ -119,7 +121,9 @@ exports.checkoutOrder = async (req, res, next) => {
         order: fulfilledOrder,
       },
     });
-  } catch (error) {}
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 exports.orderHistory = async (req, res, next) => {
@@ -156,7 +160,7 @@ exports.orderHistory = async (req, res, next) => {
       },
     });
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 };
 
@@ -182,7 +186,9 @@ exports.currentOrder = async (req, res, next) => {
         currentOrder,
       },
     });
-  } catch (error) {}
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 exports.cancelOrder = async (req, res, next) => {
@@ -265,6 +271,6 @@ exports.selectItem = async (req, res, next) => {
       }
     });
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 };
