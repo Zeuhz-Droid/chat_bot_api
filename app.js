@@ -7,12 +7,15 @@ const bodyparser = require('body-parser');
 const passport = require('passport');
 const cors = require('cors');
 
+const logger = require('./logger/logger');
+const httpLogger = require('./logger/httpLogger');
 const orderRouter = require('./routes/orderRoutes');
 const userRouter = require('./routes/userRoutes');
 
 const MongoStore = require('connect-mongo');
 
 require('./database')();
+require('dotenv').config();
 
 const app = express();
 
@@ -25,12 +28,12 @@ if ((process.env.NODE_ENV = 'development')) {
 }
 
 // using express library to gain access to body of request sent by clients
+app.use(httpLogger);
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 
 process.on('uncaughtException', (err) => {
-  console.log('UNHANDLED EXCEPTION! 💥 Shutting Down');
-  console.log(err.name, err.message);
+  logger.info('UNHANDLED EXCEPTION! 💥 Shutting Down');
   process.exit(1);
 });
 
@@ -98,13 +101,21 @@ app.use('*', (req, res, next) => {
   );
 });
 
+app.use((err, req, res, next) => {
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || 'error';
+  res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message,
+  });
+});
+
 app.listen(process.env.PORT, () => {
-  console.log(`listening successfully on PORT ${process.env.PORT}`);
+  logger.info(`listening successfully on PORT ${process.env.PORT}`);
 });
 
 process.on('unhandledRejection', (err) => {
-  console.log('UNHANDLED REJECTION! 💥 Shutting Down');
-  console.log(err.name, err.message);
+  logger.info('UNHANDLED REJECTION! 💥 Shutting Down');
   server.close(() => {
     process.exit(1);
   });
