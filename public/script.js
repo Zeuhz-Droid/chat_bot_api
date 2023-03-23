@@ -262,7 +262,10 @@ function displayData(data) {
         <div> 
           <p>${itemsCount} item(s) selected</p>
            <p>${items.map(
-             (elem) => `${++count}. ${elem.item} - $${elem.amount} <br/>`
+             (elem) =>
+               `<strong>${++count}</strong>. ${elem.item} - $${
+                 elem.amount
+               }<br/>`
            )}</p>
           <span>Total Amount: $${amount}</span>
         </div>
