@@ -28,6 +28,12 @@ if ((process.env.NODE_ENV = 'development')) {
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 
+process.on('uncaughtException', (err) => {
+  console.log('UNHANDLED EXCEPTION! 💥 Shutting Down');
+  console.log(err.name, err.message);
+  process.exit(1);
+});
+
 const whitelist = [
   'https://zeuhz-droid.github.io',
   'https://zeuhz-orderbotconsumer-droid.netlify.app',
@@ -94,6 +100,14 @@ app.use('*', (req, res, next) => {
 
 app.listen(process.env.PORT, () => {
   console.log(`listening successfully on PORT ${process.env.PORT}`);
+});
+
+process.on('unhandledRejection', (err) => {
+  console.log('UNHANDLED REJECTION! 💥 Shutting Down');
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
 });
 
 module.exports = app;
