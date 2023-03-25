@@ -23,10 +23,10 @@ formOverlay.addEventListener('submit', async (e) => {
 
   username = e.target.elements['form-overlay-input'].value;
 
+  if (!username) return;
+
   loading(data, renderLoader);
   const dots = document.querySelector('.dots');
-
-  if (!username) return;
 
   overlay.classList.add('hide');
   inputBoard.classList.add('hide');
