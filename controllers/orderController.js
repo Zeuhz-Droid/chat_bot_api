@@ -62,6 +62,7 @@ exports.placeOrder = async (req, res, next) => {
 
     await Orders.create({
       id: orderId,
+      tag: req.session.id,
       merchant: req.session.username,
     });
 
@@ -139,7 +140,7 @@ exports.orderHistory = async (req, res, next) => {
       return;
     }
 
-    orders = await Orders.find({ id: req.session.orderId }).where({
+    orders = await Orders.find({ tag: req.session.id }).where({
       fulfilled: true,
     });
 
