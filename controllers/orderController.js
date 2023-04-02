@@ -60,11 +60,13 @@ exports.placeOrder = async (req, res, next) => {
 
     req.session.orderId = orderId;
 
-    await Orders.create({
+    const placedOrder = await Orders.create({
       id: orderId,
-      tag: req.session.id,
+      tag: req.session.id.slice(0, 10),
       merchant: req.session.username,
     });
+
+    console.log(placedOrder);
 
     res.status(200).json({
       status: 'success',

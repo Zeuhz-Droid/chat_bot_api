@@ -9,6 +9,10 @@ const orderSchema = new mongoose.Schema({
     type: Array,
     maxlength: [50, 'Item name should contain no more than 50 characters'],
   },
+  tag: {
+    type: String,
+    required: [true, 'order must have a tag.'],
+  },
   itemsCount: {
     type: Number,
   },
