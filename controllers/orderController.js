@@ -142,7 +142,7 @@ exports.orderHistory = async (req, res, next) => {
       return;
     }
 
-    orders = await Orders.find({ tag: req.session.id }).where({
+    orders = await Orders.find({ tag: req.session.id.slice(0, 10) }).where({
       fulfilled: true,
     });
 
